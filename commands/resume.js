@@ -3,7 +3,7 @@ const { canModifyQueue } = require("../util/EvobotUtil");
 module.exports = {
   name: "resume",
   aliases: ["r"],
-  description: "Resume currently playing music",
+  description: "Reanudar la reproducción de música actualmente",
   execute(message) {
     const queue = message.client.queue.get(message.guild.id);
     if (!queue) return message.reply("There is nothing playing.").catch(console.error);
@@ -15,6 +15,6 @@ module.exports = {
       return queue.textChannel.send(`${message.author} ▶ resumed the music!`).catch(console.error);
     }
 
-    return message.reply("The queue is not paused.").catch(console.error);
+    return message.reply("La cola no está en pausa.").catch(console.error);
   }
 };
