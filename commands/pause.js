@@ -2,7 +2,7 @@ const { canModifyQueue } = require("../util/EvobotUtil");
 
 module.exports = {
   name: "pause",
-  description: "Pause the currently playing music",
+  description: "Pausar la música que se está reproduciendo actualmente",
   execute(message) {
     const queue = message.client.queue.get(message.guild.id);
     if (!queue) return message.reply("There is nothing playing.").catch(console.error);
