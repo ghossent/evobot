@@ -10,12 +10,12 @@ module.exports = {
   name: "play",
   cooldown: 3,
   aliases: ["p"],
-  description: "Plays audio from YouTube or Soundcloud",
+  description: "Reproduce audio de YouTube o Soundcloud",
   async execute(message, args) {
     const { channel } = message.member.voice;
 
     const serverQueue = message.client.queue.get(message.guild.id);
-    if (!channel) return message.reply("You need to join a voice channel first!").catch(console.error);
+    if (!channel) return message.reply("¡Primero debes unirte a un canal de voz!").catch(console.error);
     if (serverQueue && channel !== message.guild.me.voice.channel)
       return message.reply(`You must be in the same channel as ${message.client.user}`).catch(console.error);
 
@@ -26,9 +26,9 @@ module.exports = {
 
     const permissions = channel.permissionsFor(message.client.user);
     if (!permissions.has("CONNECT"))
-      return message.reply("Cannot connect to voice channel, missing permissions");
+      return message.reply("No se puede conectar al canal de voz, faltan permisos");
     if (!permissions.has("SPEAK"))
-      return message.reply("I cannot speak in this voice channel, make sure I have the proper permissions!");
+      return message.reply("No puedo hablar en este canal de voz, ¡asegúrese de tener los permisos adecuados!");
 
     const search = args.join(" ");
     const videoPattern = /^(https?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.?be)\/.+$/gi;
@@ -51,14 +51,14 @@ module.exports = {
           if (res.statusCode == "302") {
             return message.client.commands.get("play").execute(message, [res.headers.location]);
           } else {
-            return message.reply("No content could be found at that url.").catch(console.error);
+            return message.reply("No se pudo encontrar contenido en esa URL.").catch(console.error);
           }
         });
       } catch (error) {
         console.error(error);
         return message.reply(error.message).catch(console.error);
       }
-      return message.reply("Following url redirection...").catch(console.error);
+      return message.reply("Siguiendo la redirección de URL ...").catch(console.error);
     }
 
     const queueConstruct = {
