@@ -5,16 +5,16 @@ const youtube = new YouTubeAPI(YOUTUBE_API_KEY);
 
 module.exports = {
   name: "search",
-  description: "Search and select videos to play",
+  description: "Busca y selecciona videos para reproducir",
   async execute(message, args) {
     if (!args.length)
       return message
         .reply(`Usage: ${message.client.prefix}${module.exports.name} <Video Name>`)
         .catch(console.error);
     if (message.channel.activeCollector)
-      return message.reply("A message collector is already active in this channel.");
+      return message.reply("Ya hay un recopilador de mensajes activo en este canal.");
     if (!message.member.voice.channel)
-      return message.reply("You need to join a voice channel first!").catch(console.error);
+      return message.reply("¡Primero debes unirte a un canal de voz!").catch(console.error);
 
     const search = args.join(" ");
 
