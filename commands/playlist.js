@@ -9,7 +9,7 @@ module.exports = {
   name: "playlist",
   cooldown: 5,
   aliases: ["pl"],
-  description: "Play a playlist from youtube",
+  description: "Reproducir una lista de reproducción de youtube",
   async execute(message, args) {
     const { channel } = message.member.voice;
     const serverQueue = message.client.queue.get(message.guild.id);
@@ -22,9 +22,9 @@ module.exports = {
 
     const permissions = channel.permissionsFor(message.client.user);
     if (!permissions.has("CONNECT"))
-      return message.reply("Cannot connect to voice channel, missing permissions");
+      return message.reply("No se puede conectar al canal de voz, faltan permisos");
     if (!permissions.has("SPEAK"))
-      return message.reply("I cannot speak in this voice channel, make sure I have the proper permissions!");
+      return message.reply("No puedo hablar en este canal de voz, ¡asegúrese de tener los permisos adecuados!");
 
     if (serverQueue && channel !== message.guild.me.voice.channel)
       return message.reply(`You must be in the same channel as ${message.client.user}`).catch(console.error);
@@ -53,11 +53,11 @@ module.exports = {
         videos = await playlist.getVideos(MAX_PLAYLIST_SIZE || 10, { part: "snippet" });
       } catch (error) {
         console.error(error);
-        return message.reply("Playlist not found :(").catch(console.error);
+        return message.reply("Lista de reproducción no encontrada :(").catch(console.error);
       }
     } else if (scdl.isValidUrl(args[0])) {
       if (args[0].includes("/sets/")) {
-        message.channel.send("⌛ fetching the playlist...");
+        message.channel.send("⌛ buscando la lista de reproducción...");
         playlist = await scdl.getSetInfo(args[0], SOUNDCLOUD_CLIENT_ID);
         videos = playlist.tracks.map((track) => ({
           title: track.title,
@@ -96,7 +96,7 @@ module.exports = {
 
     if (playlistEmbed.description.length >= 2048)
       playlistEmbed.description =
-        playlistEmbed.description.substr(0, 2007) + "\nPlaylist larger than character limit...";
+        playlistEmbed.description.substr(0, 2007) + "\nLista de reproducción superior al límite de caracteres...";
 
     message.channel.send(`${message.author} Started a playlist`, playlistEmbed);
 
