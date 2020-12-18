@@ -4,11 +4,11 @@ module.exports = {
   name: "queue",
   cooldown: 5,
   aliases: ["q"],
-  description: "Show the music queue and now playing.",
+  description: "Muestra la cola de música y ahora se reproduce.",
   async execute(message) {
     const permissions = message.channel.permissionsFor(message.client.user);
     if (!permissions.has(["MANAGE_MESSAGES", "ADD_REACTIONS"]))
-      return message.reply("Missing permission to manage messages or add reactions");
+      return message.reply("Falta el permiso para administrar mensajes o agregar reacciones");
 
     const queue = message.client.queue.get(message.guild.id);
     if (!queue) return message.channel.send("❌ **Nothing playing in this server**");
