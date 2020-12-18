@@ -3,11 +3,11 @@ const { canModifyQueue } = require("../util/EvobotUtil");
 module.exports = {
   name: "skip",
   aliases: ["s"],
-  description: "Skip the currently playing song",
+  description: "Omitir la canción que se está reproduciendo actualmente",
   execute(message) {
     const queue = message.client.queue.get(message.guild.id);
     if (!queue)
-      return message.reply("There is nothing playing that I could skip for you.").catch(console.error);
+      return message.reply("Taquí no hay nada que pueda saltarme para ti.").catch(console.error);
     if (!canModifyQueue(message.member)) return;
 
     queue.playing = true;
